@@ -3,7 +3,7 @@ namespace App;
 
 class ProductStructure
 {
-    const products = [
+    private $products = [
         "preto-PP",
         "preto-M",
         "preto-G",
@@ -20,7 +20,31 @@ class ProductStructure
 
     public function make(): array
     {
-       //todo your code.
-        return [];
+
+        $array = [];
+        foreach($this->products as $product)
+        {
+            $productData = explode('-', $product);
+            $productName = $productData[0];
+            $productSize = $productData[1];
+
+            //verifico se a chave existe, se não existir eu adiciono ela no array
+            if(!array_key_exists($productName, $array))
+            {
+                $array[$productName] = [];
+            }
+            
+            //verifico se a chave do subarray existe
+            if(!array_key_exists($productSize, $array[$productName]))
+            {
+                $array[$productName][$productSize] = 1;
+            }
+            else
+            {
+                $array[$productName][$productSize]++;
+            }
+        }
+        return $array;
     }
+
 }
